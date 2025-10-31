@@ -1,63 +1,53 @@
 package lotto.controller;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
-import lotto.model.Calculator;
 import lotto.model.Lotto;
 import lotto.model.LottoGenerator;
-import lotto.model.ProfitCalculator;
-import lotto.model.PurchaseInfo;
 import lotto.model.ResultRank;
+import lotto.service.LottoService;
 import lotto.view.InputView;
 import lotto.view.OutputView;
 
 public class LottoController {
     private final InputView inputView;
     private final OutputView outputView;
+    private final LottoService lottoService;
 
-    public LottoController(InputView inputView, OutputView outputView){
+    public LottoController(InputView inputView, OutputView outputView, LottoService lottoService){
         this.inputView = inputView;
         this.outputView = outputView;
+        this.lottoService = lottoService;
     }
 
     public void run(){
 
-        List<Integer> lottoInputNumbers = new ArrayList<>();
-
+        //구매금액입력
         outputView.printInputPrice();
         int price = Integer.parseInt(inputView.input());
 
-        PurchaseInfo purchaseInfo = new PurchaseInfo(price);
-        LottoGenerator lottoGenerator = new LottoGenerator(purchaseInfo.perchanceCount());
+        //구매금액에서갯수계산
+        int count = lottoService.calculateLottoCount(price);
+        outputView.printPurchaseCount(count);
 
-        outputView.printPurchaseCount(purchaseInfo.perchanceCount());
+        //랜덤로또출력
+        LottoGenerator lottoGenerator = lottoService.generateLotto(count);
         outputView.printRandomLotto(lottoGenerator.getNumbers());
 
-
+        //당첨로또입력
         outputView.printInputWinLotto();
         String[] input = inputView.input().split(",");
-        for(String a : input){
-            lottoInputNumbers.add(Integer.parseInt(a));
-        }
-        Lotto winNumber = new Lotto(lottoInputNumbers);
+        Lotto winNumbers = lottoService.winLotto(input);
 
-
+        //보너스넘버입력
         outputView.printInputBonusNumber();
         int bonusNumber = Integer.parseInt(inputView.input());
 
 
+        Map<ResultRank, Integer> calculateResult = lottoService.lottoCalculater(lottoGenerator,winNumbers,bonusNumber);
+        double profitRate= lottoService.calculateProfitRate(calculateResult, price);
 
-        Calculator calculator = new Calculator(lottoGenerator.getNumbers(),
-                winNumber.getNumbers(), bonusNumber);
-
-        Map<ResultRank, Integer> result = calculator.calculateWinningResult();
-
-        ProfitCalculator profitCalculator = new ProfitCalculator(price, result);
-
-        outputView.printLottoResult(result);
-
-        outputView.printlottoProfitRate(profitCalculator.calculateProfitRate());
-
+        //로또결과랑 수익률출력
+        outputView.printLottoResult(calculateResult);
+        outputView.printlottoProfitRate(profitRate);
     }
 }
