@@ -1,6 +1,11 @@
 package lotto.model;
 
-public record PurchaseInfo(int price) {
+public class PurchaseInfo {
+    private final int price;
+
+    public PurchaseInfo(int price) {
+        this.price = price;
+    }
 
     public int perchanceCount() {
         return price / 1000;
