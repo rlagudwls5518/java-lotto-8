@@ -30,7 +30,6 @@ public class LottoService {
         return new Lotto(lottoInputNumbers);
 
     }
-
     public Map<ResultRank, Integer> lottoCalculater(LottoGenerator lottoGenerator, Lotto winNumbers,int bonusNumber){
         //계산로직
         Calculator calculator = new Calculator(lottoGenerator.getNumbers(),
@@ -43,5 +42,4 @@ public class LottoService {
         ProfitCalculator profitCalculator = new ProfitCalculator(purchaseAmount, result);
         return  profitCalculator.calculateProfitRate();
     }
-
 }

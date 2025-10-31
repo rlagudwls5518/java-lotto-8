@@ -4,6 +4,7 @@ import java.util.Map;
 import lotto.model.Lotto;
 import lotto.model.LottoGenerator;
 import lotto.model.ResultRank;
+import lotto.model.util.Lottovalidator;
 import lotto.service.LottoService;
 import lotto.view.InputView;
 import lotto.view.OutputView;
@@ -23,7 +24,9 @@ public class LottoController {
 
         //구매금액입력
         outputView.printInputPrice();
-        int price = Integer.parseInt(inputView.input());
+        String inputPrice = inputView.input();
+        Lottovalidator.validInputPriceIsNumber(inputPrice);
+        int price = Integer.parseInt(inputPrice);
 
         //구매금액에서갯수계산
         int count = lottoService.calculateLottoCount(price);
@@ -40,7 +43,9 @@ public class LottoController {
 
         //보너스넘버입력
         outputView.printInputBonusNumber();
-        int bonusNumber = Integer.parseInt(inputView.input());
+        String inputBonusNumber = inputView.input();
+        Lottovalidator.validBonusNumber(inputBonusNumber,winNumbers);
+        int bonusNumber = Integer.parseInt(inputBonusNumber);
 
 
         Map<ResultRank, Integer> calculateResult = lottoService.lottoCalculater(lottoGenerator,winNumbers,bonusNumber);
