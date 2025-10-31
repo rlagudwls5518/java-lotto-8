@@ -2,7 +2,7 @@ package lotto.model.util;
 
 import lotto.model.Lotto;
 
-public class Lottovalidator {
+public class LottoValidator {
     private static final String NUMBER_REGEX = "^[0-9]+$";
 
     public static void validInputPriceIsNumber(String inputPrice){
