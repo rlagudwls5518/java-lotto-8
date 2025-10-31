@@ -35,13 +35,6 @@ public class Calculator {
         return resultCount;
     }
 
-    private void validate(int bonusNumber) {
-        if(bonusNumber>45){
-            throw new IllegalArgumentException("[ERROR] ddd.");
-        }
-    }
-
-
     private ResultRank determineRank(long matchCount, boolean bonusMatch) {
         if (matchCount == 6) return ResultRank.FIRST;
         if (matchCount == 5 && bonusMatch) return ResultRank.SECOND;
@@ -49,6 +42,23 @@ public class Calculator {
         if (matchCount == 4) return ResultRank.FOURTH;
         if (matchCount == 3) return ResultRank.FIFTH;
         return null;
+    }
+
+    private void validate(int bonusNumber) {
+        validateBonusNumberRange(bonusNumber);
+        validateBonusNumberDuplication(bonusNumber);
+    }
+
+    private void validateBonusNumberRange(int bonusNumber){
+        if(bonusNumber > 45 || bonusNumber == 0){
+            throw new IllegalArgumentException("[ERROR] 보너스숫자는 1~45까지 입니다.");
+        }
+    }
+
+    private void validateBonusNumberDuplication(int bonusNumber){
+        if(winNumbers.contains(bonusNumber)){
+            throw new IllegalArgumentException("[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.");
+        }
     }
 
 
