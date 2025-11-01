@@ -7,27 +7,31 @@ import lotto.model.ResultRank;
 
 public class OutputView {
 
-    public void printPurchaseCount(int count){
+    public static void printError(String message) {
+        System.out.println(message);
+    }
+
+    public static void printPurchaseCount(int count){
         System.out.println(count+"개를 구매했습니다.");
     }
 
-    public void printRandomLotto(List<Lotto>numbers){
+    public static void printRandomLotto(List<Lotto>numbers){
         for(Lotto number : numbers){
             System.out.println(number);
         }
 
     }
-    public void printInputPrice(){
+    public static void printInputPrice(){
         System.out.println("구입금액을 입력해 주세요.");
     }
-    public void printInputWinLotto(){
+    public static void printInputWinLotto(){
         System.out.println("당첨 번호를 입력해 주세요.");
     }
-    public void printInputBonusNumber(){
+    public static void printInputBonusNumber(){
         System.out.println("보너스 번호를 입력해 주세요.");
     }
 
-    public void printLottoResult(Map<ResultRank, Integer> resultCount){
+    public static void printLottoResult(Map<ResultRank, Integer> resultCount){
         System.out.println("당첨통계");
         System.out.println("---");
         ResultRank[] ranks = ResultRank.values();
@@ -50,7 +54,7 @@ public class OutputView {
         }
     }
 
-    public void printlottoProfitRate(double profitRate){
+    public static void printLottoProfitRate(double profitRate){
         System.out.printf("총 수익률은 %.1f%%입니다.%n", profitRate);
     }
 }
