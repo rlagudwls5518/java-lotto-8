@@ -4,55 +4,82 @@ import java.util.Map;
 import lotto.model.Lotto;
 import lotto.model.LottoGenerator;
 import lotto.model.ResultRank;
-import lotto.model.util.Lottovalidator;
+import lotto.model.util.LottoValidator;
 import lotto.service.LottoService;
 import lotto.view.InputView;
 import lotto.view.OutputView;
 
 public class LottoController {
-    private final InputView inputView;
-    private final OutputView outputView;
     private final LottoService lottoService;
 
-    public LottoController(InputView inputView, OutputView outputView, LottoService lottoService){
-        this.inputView = inputView;
-        this.outputView = outputView;
+    public LottoController(LottoService lottoService){
         this.lottoService = lottoService;
     }
 
     public void run(){
 
-        //구매금액입력
-        outputView.printInputPrice();
-        String inputPrice = inputView.input();
-        Lottovalidator.validInputPriceIsNumber(inputPrice);
-        int price = Integer.parseInt(inputPrice);
+        int price = inputPriceUntilValid();
+        int count = printAndGetLottoCount(price);
+        LottoGenerator lottoGenerator = printAndGetRandomLottos(count);
+        Lotto winNumbers = inputWinningNumbersUntilValid();
+        int bonusNumber = inputBonusNumber(winNumbers);
 
-        //구매금액에서갯수계산
+        Map<ResultRank, Integer> result = lottoService.lottoCalculater(lottoGenerator, winNumbers, bonusNumber);
+        double profitRate = lottoService.calculateProfitRate(result, price);
+
+        printResult(result, profitRate);
+    }
+
+    private int printAndGetLottoCount(int price) {
         int count = lottoService.calculateLottoCount(price);
-        outputView.printPurchaseCount(count);
+        OutputView.printPurchaseCount(count);
+        return count;
+    }
 
-        //랜덤로또출력
+    private LottoGenerator printAndGetRandomLottos(int count) {
         LottoGenerator lottoGenerator = lottoService.generateLotto(count);
-        outputView.printRandomLotto(lottoGenerator.getNumbers());
+        OutputView.printRandomLotto(lottoGenerator.getNumbers());
+        return lottoGenerator;
+    }
 
-        //당첨로또입력
-        outputView.printInputWinLotto();
-        String[] input = inputView.input().split(",");
-        Lotto winNumbers = lottoService.winLotto(input);
+    private int inputBonusNumber(Lotto winNumbers) {
+        OutputView.printInputBonusNumber();
+        String inputBonusNumber = InputView.input();
+        LottoValidator.validBonusNumber(inputBonusNumber, winNumbers);
+        return Integer.parseInt(inputBonusNumber);
+    }
 
-        //보너스넘버입력
-        outputView.printInputBonusNumber();
-        String inputBonusNumber = inputView.input();
-        Lottovalidator.validBonusNumber(inputBonusNumber,winNumbers);
-        int bonusNumber = Integer.parseInt(inputBonusNumber);
+    private void printResult(Map<ResultRank, Integer> result, double profitRate) {
+        OutputView.printLottoResult(result);
+        OutputView.printLottoProfitRate(profitRate);
+    }
 
+    private int inputPriceUntilValid() {
+        while (true) {
+            try {
+                return BuyLotto();
+            } catch (IllegalArgumentException e) {
+                OutputView.printError(e.getMessage());
+            }
+        }
+    }
 
-        Map<ResultRank, Integer> calculateResult = lottoService.lottoCalculater(lottoGenerator,winNumbers,bonusNumber);
-        double profitRate= lottoService.calculateProfitRate(calculateResult, price);
+    private int BuyLotto(){
+        OutputView.printInputPrice();
+        String inputPrice = InputView.input();
+        LottoValidator.validInputPriceIsNumber(inputPrice);
+        return Integer.parseInt(inputPrice);
+    }
 
-        //로또결과랑 수익률출력
-        outputView.printLottoResult(calculateResult);
-        outputView.printlottoProfitRate(profitRate);
+    private Lotto inputWinningNumbersUntilValid() {
+        while (true) {
+            try {
+                OutputView.printInputWinLotto();
+                String[] input = InputView.input().split(",");
+                return lottoService.winLotto(input);
+            } catch (IllegalArgumentException e) {
+                OutputView.printError(e.getMessage());
+            }
+        }
     }
 }
