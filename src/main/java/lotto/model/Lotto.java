@@ -27,11 +27,13 @@ public class Lotto {
     public String toString() {
         return numbers.toString();
     }
+
     private void validateNumbersSize(List<Integer> numbers){
         if(numbers.size() != 6){
             throw new IllegalArgumentException(ExceptionMessage.INVALID_LOTTO_SIZE);
         }
     }
+
     private void validateNumbersDuplication(List<Integer> numbers){
         Set<Integer> uniqueNumbers = new HashSet<>(numbers);
 
@@ -39,7 +41,8 @@ public class Lotto {
             throw new IllegalArgumentException(ExceptionMessage.DUPLICATED_LOTTO_NUMBERS);
         }
     }
-    private  void validateNumbersRange(List<Integer> numbers){
+    
+    private void validateNumbersRange(List<Integer> numbers){
         final int MIN_NUMBER = 1;
         final int MAX_NUMBER = 45;
 
