@@ -1,7 +1,5 @@
 package lotto.service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import lotto.model.Calculator;
 import lotto.model.Lotto;
@@ -22,14 +20,6 @@ public class LottoService {
         return new LottoGenerator(count);
     }
 
-    public Lotto winLotto(String[] input){
-        List<Integer> lottoInputNumbers = new ArrayList<>();
-        for(String a : input){
-            lottoInputNumbers.add(Integer.parseInt(a));
-        }
-        return new Lotto(lottoInputNumbers);
-
-    }
     public Map<ResultRank, Integer> lottoCalculater(LottoGenerator lottoGenerator, Lotto winNumbers,int bonusNumber){
         //계산로직
         Calculator calculator = new Calculator(lottoGenerator.getNumbers(),
