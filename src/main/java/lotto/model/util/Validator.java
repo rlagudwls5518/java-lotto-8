@@ -7,9 +7,7 @@ public class Validator {
 
     private Validator() {}
 
-    private static void validateBonusDuplicateWithWinNumbers(String inputBonusNumber, Lotto winNumbers){
-        int bonusNumber = Integer.parseInt(inputBonusNumber);
-
+    public static void validateBonusDuplicateWithWinNumbers(int bonusNumber, Lotto winNumbers){
         if (winNumbers.getNumbers().contains(bonusNumber)) {
             throw new IllegalArgumentException(ExceptionMessage.DUPLICATED_BONUS_NUMBER);
         }
