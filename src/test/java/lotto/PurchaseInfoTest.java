@@ -28,7 +28,7 @@ public class PurchaseInfoTest {
         assertThat(count3).isEqualTo(5);;
     }
 
-    @DisplayName("구매 금액 입력이 1000원 단위가 아닌경우 로또갯수반횐이 잘되는지")
+    @DisplayName("구매 금액 입력이 1000원 단위가 아닌경우 로또 갯수 반횐이 잘되는지")
     @Test
     void 구매_금액_입력이_1000원_단위일_경우() {
 
