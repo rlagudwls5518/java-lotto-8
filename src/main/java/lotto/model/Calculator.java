@@ -34,7 +34,7 @@ public class Calculator {
         return resultCount;
     }
 
-    private ResultRank determineRank(long matchCount, boolean bonusMatch) {
+    public ResultRank determineRank(long matchCount, boolean bonusMatch) {
         if (matchCount == 6) return ResultRank.FIRST;
         if (matchCount == 5 && bonusMatch) return ResultRank.SECOND;
         if (matchCount == 5) return ResultRank.THIRD;
@@ -42,6 +42,4 @@ public class Calculator {
         if (matchCount == 3) return ResultRank.FIFTH;
         return null;
     }
-
-
 }
