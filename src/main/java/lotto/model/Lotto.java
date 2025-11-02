@@ -41,7 +41,7 @@ public class Lotto {
             throw new IllegalArgumentException(ExceptionMessage.DUPLICATED_LOTTO_NUMBERS);
         }
     }
-    
+
     private void validateNumbersRange(List<Integer> numbers){
         final int MIN_NUMBER = 1;
         final int MAX_NUMBER = 45;
