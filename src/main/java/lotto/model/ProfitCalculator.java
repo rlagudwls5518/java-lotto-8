@@ -22,5 +22,4 @@ public class ProfitCalculator {
 
         return ((double) totalReward / purchaseAmount) * 100;
     }
-
 }
