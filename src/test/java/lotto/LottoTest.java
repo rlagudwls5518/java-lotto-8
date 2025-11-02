@@ -22,8 +22,6 @@ class LottoTest {
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
-    // TODO: 추가 기능 구현에 따른 테스트 코드 작성
-
     @DisplayName("로또 번호가 1~45까지가 아니면 예외가 발생한다")
     @Test
     void 로또_번호가_1_45까지가_아니면_예외가_발생한다() {
