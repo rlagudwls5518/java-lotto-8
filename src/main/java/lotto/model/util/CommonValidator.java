@@ -1,7 +1,5 @@
 package lotto.model.util;
 
-import lotto.model.Lotto;
-
 public class CommonValidator {
     public static final String NUMBER_REGEX = "^[0-9]+$";
 

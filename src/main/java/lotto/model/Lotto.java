@@ -1,6 +1,5 @@
 package lotto.model;
 
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -44,7 +43,6 @@ public class Lotto {
     }
 
     private void validateNumbersRange(List<Integer> numbers){
-
         boolean invalid = numbers.stream()
                 .anyMatch(n -> n < LottoConstants.MIN_LOTTO_NUMBER.getNumber() || n > LottoConstants.MAX_LOTTO_NUMBER.getNumber());
 
