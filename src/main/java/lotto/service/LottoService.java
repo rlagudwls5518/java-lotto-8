@@ -7,6 +7,7 @@ import lotto.model.LottoGenerator;
 import lotto.model.ProfitCalculator;
 import lotto.model.PurchaseInfo;
 import lotto.model.ResultRank;
+import lotto.model.WinninLotto;
 
 
 public class LottoService {
@@ -21,9 +22,10 @@ public class LottoService {
     }
 
     public Map<ResultRank, Integer> lottoCalculater(LottoGenerator lottoGenerator, Lotto winNumbers,int bonusNumber){
+        WinninLotto winninLotto = new WinninLotto(bonusNumber, winNumbers);
         //계산로직
         Calculator calculator = new Calculator(lottoGenerator.getNumbers(),
-                winNumbers.getNumbers(), bonusNumber);
+                winninLotto.getWinLottos(), winninLotto.getBonusNumber());
         return calculator.calculateWinningResult();
     }
 
