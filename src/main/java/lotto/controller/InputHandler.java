@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import lotto.model.BonusLotto;
 import lotto.model.Lotto;
-import lotto.model.util.Validator;
+import lotto.model.util.CommonValidator;
 import lotto.view.InputView;
 import lotto.view.OutputView;
 
@@ -15,7 +15,7 @@ public class InputHandler {
             try {
                 OutputView.printInputPrice();
                 String price = InputView.input();
-                Validator.validateIsNumber(price);
+                CommonValidator.validateIsNumber(price);
                 return Integer.parseInt(price);
             } catch (IllegalArgumentException e) {
                 OutputView.printError(e.getMessage());
