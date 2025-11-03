@@ -1,45 +1,44 @@
 package lotto.model;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
 public class Calculator {
-    private final List<Lotto> Lottos;
-    private final List<Integer> winNumbers;
+    private final List<Lotto> lottos;
+    private final Lotto winNumbers;
     private final int bonusNumber;
-    private final Map<ResultRank, Integer> resultCount = new HashMap<>();
 
-    public Calculator(List<Lotto> Lottos, List<Integer> winNumbers, int bonusNumber) {
-        this.Lottos = Lottos;
+    public Calculator(List<Lotto> lottos, Lotto winNumbers, int bonusNumber) {
+        this.lottos = lottos;
         this.winNumbers = winNumbers;
         this.bonusNumber = bonusNumber;
     }
 
-    public Map<ResultRank, Integer> calculateWinningResult(){
+    public Map<ResultRank, Integer> calculateWinningResult() {
+        Map<ResultRank, Integer> resultCount = new EnumMap<>(ResultRank.class);
+        List<Integer> winNumber = winNumbers.getNumbers();
 
-        for (Lotto randomLotto : Lottos) {
-            List<Integer> numbers = randomLotto.getNumbers();
-
-            int matchCount = Math.toIntExact(numbers.stream()
-                    .filter(winNumbers::contains)
-                    .count());
+        for (Lotto lotto : lottos) {
+            List<Integer> numbers = lotto.getNumbers();
 
             boolean bonusMatch = numbers.contains(bonusNumber);
 
-            ResultRank rank = determineRank(matchCount, bonusMatch);
-
-            resultCount.put(rank, resultCount.getOrDefault(rank, 0) + 1);
+            ResultRank rank = ResultRank.valueOf(whatMatchCount(numbers,winNumber), bonusMatch);
+            isMiss(rank, resultCount);
         }
         return resultCount;
     }
 
-    public ResultRank determineRank(long matchCount, boolean bonusMatch) {
-        if (matchCount == 6) return ResultRank.FIRST;
-        if (matchCount == 5 && bonusMatch) return ResultRank.SECOND;
-        if (matchCount == 5) return ResultRank.THIRD;
-        if (matchCount == 4) return ResultRank.FOURTH;
-        if (matchCount == 3) return ResultRank.FIFTH;
-        return null;
+    private void isMiss(ResultRank rank, Map<ResultRank, Integer> resultCount){
+        if (rank != ResultRank.MISS) {
+            resultCount.put(rank, resultCount.getOrDefault(rank, 0) + 1);
+        }
+    }
+
+    private long whatMatchCount(List<Integer> numbers, List<Integer> winNumber){
+        return numbers.stream()
+                .filter(winNumber::contains)
+                .count();
     }
 }
