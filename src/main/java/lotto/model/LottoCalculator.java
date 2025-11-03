@@ -4,12 +4,12 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
-public class Calculator {
+public class LottoCalculator {
     private final List<Lotto> lottos;
     private final Lotto winNumbers;
     private final int bonusNumber;
 
-    public Calculator(List<Lotto> lottos, Lotto winNumbers, int bonusNumber) {
+    public LottoCalculator(List<Lotto> lottos, Lotto winNumbers, int bonusNumber) {
         this.lottos = lottos;
         this.winNumbers = winNumbers;
         this.bonusNumber = bonusNumber;
