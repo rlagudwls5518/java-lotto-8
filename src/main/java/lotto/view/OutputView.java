@@ -47,7 +47,7 @@ public class OutputView {
     }
 
     private static String printRankFormat(ResultRank rank, int count){
-        String formattedReward = formatCurrency(rank.getReward());
+        String formattedReward = formatMoney(rank.getReward());
         if (rank == ResultRank.SECOND) {
             System.out.printf("5개 일치, 보너스 볼 일치 (%s원) - %d개%n",
                     String.format("%,d", rank.getReward()), count);
@@ -57,7 +57,7 @@ public class OutputView {
                 formattedReward, count);
     }
 
-    private static String formatCurrency(int amount) {
+    private static String formatMoney(int amount) {
         return String.format("%,d", amount);
     }
 
