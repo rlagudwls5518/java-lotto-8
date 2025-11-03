@@ -1,8 +1,8 @@
 package lotto.model;
 
 public class PurchaseInfo {
-    private final int price;
     private static final int ONE_LOTTO_PRICE = 1000;
+    private final int price;
 
     public PurchaseInfo(int price) {
         this.price = price;

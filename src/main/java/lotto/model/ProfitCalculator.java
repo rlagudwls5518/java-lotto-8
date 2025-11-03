@@ -3,9 +3,9 @@ package lotto.model;
 import java.util.Map;
 
 public class ProfitCalculator {
+    private static final int PURSENT_NUMBER = 100;
     private final int purchaseAmount;
     private final Map<ResultRank, Integer> resultCount;
-    private static final int PURSENT_NUMBER = 100;
 
     public ProfitCalculator(int purchaseAmount, Map<ResultRank, Integer> resultCount) {
         this.purchaseAmount = purchaseAmount;
