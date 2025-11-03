@@ -12,16 +12,17 @@ public class WinninLotto {
         this.winLottos = winLottos;
     }
 
-    private static void validateBonusDuplicateWithWinNumbers(int bonusNumber, Lotto winNumbers){
+    private static void validateBonusDuplicateWithWinNumbers(int bonusNumber, Lotto winNumbers) {
         if (winNumbers.getNumbers().contains(bonusNumber)) {
             throw new IllegalArgumentException(ExceptionMessage.DUPLICATED_BONUS_NUMBER);
         }
     }
 
-    public Lotto getWinLottos(){
+    public Lotto getWinLottos() {
         return winLottos;
     }
-    public int getBonusNumber(){
+
+    public int getBonusNumber() {
         return bonusNumber;
     }
 }

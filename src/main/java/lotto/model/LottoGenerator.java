@@ -6,7 +6,7 @@ import java.util.List;
 import lotto.model.util.LottoConstants;
 import lotto.model.util.RandomNumberGenerator;
 
-public class LottoGenerator  implements RandomNumberGenerator{
+public class LottoGenerator implements RandomNumberGenerator {
     private final List<Lotto> lottos = new ArrayList<>();
     private final int count;
 
@@ -15,13 +15,13 @@ public class LottoGenerator  implements RandomNumberGenerator{
         createLottos();
     }
 
-    private void createLottos(){
-        for(int i=0; i<count; i++){
+    private void createLottos() {
+        for (int i = 0; i < count; i++) {
             lottos.add(new Lotto(createNumbers()));
         }
     }
 
-    public List<Lotto> getNumbers(){
+    public List<Lotto> getNumbers() {
         return lottos;
     }
 

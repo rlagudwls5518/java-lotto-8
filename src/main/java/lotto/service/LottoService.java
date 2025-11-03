@@ -21,15 +21,15 @@ public class LottoService {
         return new LottoGenerator(count);
     }
 
-    public Map<ResultRank, Integer> lottoCalculater(LottoGenerator lottoGenerator, Lotto winNumbers,int bonusNumber){
+    public Map<ResultRank, Integer> lottoCalculater(LottoGenerator lottoGenerator, Lotto winNumbers, int bonusNumber) {
         WinninLotto winninLotto = new WinninLotto(bonusNumber, winNumbers);
         LottoCalculator calculator = new LottoCalculator(lottoGenerator.getNumbers(),
                 winninLotto.getWinLottos(), winninLotto.getBonusNumber());
         return calculator.calculateWinningResult();
     }
 
-    public double calculateProfitRate(Map<ResultRank, Integer> result, int purchaseAmount){
+    public double calculateProfitRate(Map<ResultRank, Integer> result, int purchaseAmount) {
         ProfitCalculator profitCalculator = new ProfitCalculator(purchaseAmount, result);
-        return  profitCalculator.calculateProfitRate();
+        return profitCalculator.calculateProfitRate();
     }
 }

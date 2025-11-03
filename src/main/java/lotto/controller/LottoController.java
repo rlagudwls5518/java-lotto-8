@@ -11,12 +11,12 @@ public class LottoController {
     private final LottoService lottoService;
     private final InputHandler inputHandler;
 
-    public LottoController(LottoService lottoService, InputHandler inputHandler){
+    public LottoController(LottoService lottoService, InputHandler inputHandler) {
         this.lottoService = lottoService;
         this.inputHandler = inputHandler;
     }
 
-    public void run(){
+    public void run() {
 
         int price = inputHandler.inputPriceUntilValid();
         int count = lottoService.calculateLottoCount(price);

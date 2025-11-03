@@ -24,19 +24,19 @@ public class LottoCalculator {
 
             boolean bonusMatch = numbers.contains(bonusNumber);
 
-            ResultRank rank = ResultRank.valueOf(whatMatchCount(numbers,winNumber), bonusMatch);
+            ResultRank rank = ResultRank.valueOf(whatMatchCount(numbers, winNumber), bonusMatch);
             isMiss(rank, resultCount);
         }
         return resultCount;
     }
 
-    private void isMiss(ResultRank rank, Map<ResultRank, Integer> resultCount){
+    private void isMiss(ResultRank rank, Map<ResultRank, Integer> resultCount) {
         if (rank != null) {
             resultCount.put(rank, resultCount.getOrDefault(rank, 0) + 1);
         }
     }
 
-    private long whatMatchCount(List<Integer> numbers, List<Integer> winNumber){
+    private long whatMatchCount(List<Integer> numbers, List<Integer> winNumber) {
         return numbers.stream()
                 .filter(winNumber::contains)
                 .count();

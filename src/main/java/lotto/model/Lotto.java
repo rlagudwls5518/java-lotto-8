@@ -28,13 +28,13 @@ public class Lotto {
         return numbers.toString();
     }
 
-    private void validateNumbersSize(List<Integer> numbers){
-        if(numbers.size() != LottoConstants.LOTTO_SIZE.getNumber()){
+    private void validateNumbersSize(List<Integer> numbers) {
+        if (numbers.size() != LottoConstants.LOTTO_SIZE.getNumber()) {
             throw new IllegalArgumentException(ExceptionMessage.INVALID_LOTTO_SIZE);
         }
     }
 
-    private void validateNumbersDuplication(List<Integer> numbers){
+    private void validateNumbersDuplication(List<Integer> numbers) {
         Set<Integer> uniqueNumbers = new HashSet<>(numbers);
 
         if (uniqueNumbers.size() != numbers.size()) {
@@ -42,9 +42,10 @@ public class Lotto {
         }
     }
 
-    private void validateNumbersRange(List<Integer> numbers){
+    private void validateNumbersRange(List<Integer> numbers) {
         boolean invalid = numbers.stream()
-                .anyMatch(n -> n < LottoConstants.MIN_LOTTO_NUMBER.getNumber() || n > LottoConstants.MAX_LOTTO_NUMBER.getNumber());
+                .anyMatch(n -> n < LottoConstants.MIN_LOTTO_NUMBER.getNumber()
+                        || n > LottoConstants.MAX_LOTTO_NUMBER.getNumber());
 
         if (invalid) {
             throw new IllegalArgumentException(ExceptionMessage.INVALID_NUMBER_RANGE);

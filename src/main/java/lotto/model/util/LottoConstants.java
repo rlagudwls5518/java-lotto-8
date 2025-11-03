@@ -13,7 +13,7 @@ public enum LottoConstants {
         this.number = number;
     }
 
-    public int getNumber(){
+    public int getNumber() {
         return number;
     }
 }

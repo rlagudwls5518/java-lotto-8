@@ -7,7 +7,7 @@ public class ProfitCalculator {
     private final Map<ResultRank, Integer> resultCount;
     private static final int PURSENT_NUMBER = 100;
 
-    public ProfitCalculator(int purchaseAmount, Map<ResultRank, Integer> resultCount){
+    public ProfitCalculator(int purchaseAmount, Map<ResultRank, Integer> resultCount) {
         this.purchaseAmount = purchaseAmount;
         this.resultCount = resultCount;
     }
@@ -17,7 +17,9 @@ public class ProfitCalculator {
 
         for (ResultRank rank : resultCount.keySet()) {
             int count = resultCount.get(rank);
-            if (rank == null) continue;
+            if (rank == null) {
+                continue;
+            }
             totalReward += (long) rank.getReward() * count;
         }
 
