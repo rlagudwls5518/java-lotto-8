@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 
 public class ProfitCalculatorTest {
 
-
     @Test
     @DisplayName("총 당첨 금액과 구매 금액을 기준으로 수익률을 정확히 계산한다")
     void CalculateCorrectProfitRate() {
