@@ -19,7 +19,6 @@ public class OutputView {
         for(Lotto number : numbers){
             System.out.println(number);
         }
-
     }
     public static void printInputPrice(){
         System.out.println("구입금액을 입력해 주세요.");
@@ -41,7 +40,7 @@ public class OutputView {
 
             int count = resultCount.getOrDefault(rank, 0);
 
-            if (rank == ResultRank.SECOND) { // 5개 + 보너스볼 일치만 따로 문구 지정
+            if (rank == ResultRank.SECOND) {
                 System.out.printf("5개 일치, 보너스 볼 일치 (%s원) - %d개%n",
                         String.format("%,d", rank.getReward()), count);
                 continue;
