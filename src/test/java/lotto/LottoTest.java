@@ -1,5 +1,6 @@
 package lotto;
 
+import java.util.Arrays;
 import lotto.controller.InputHandler;
 import lotto.model.Lotto;
 import lotto.model.LottoGenerator;
@@ -14,7 +15,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -134,5 +135,19 @@ class LottoTest {
         assertThat(ResultRank.valueOf(2, false)).isEqualTo(null);
         assertThat(ResultRank.valueOf(1, false)).isEqualTo(null);
         assertThat(ResultRank.valueOf(0, false)).isEqualTo(null);
+    }
+
+    @Test
+    @DisplayName("로또 번호가 오름차순으로 정렬된다")
+    void SortsNumbers() {
+        // given
+        List<Integer> numbers = Arrays.asList(10, 2, 5, 1, 9, 6);
+
+        // when
+        Lotto lotto = new Lotto(numbers);
+
+        // then
+        List<Integer> sorted = Arrays.asList(1, 2, 5, 6, 9, 10);
+        assertThat(lotto.getNumbers()).isEqualTo(sorted);
     }
 }
