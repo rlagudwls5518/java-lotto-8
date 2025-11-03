@@ -24,7 +24,7 @@ public class LottoController {
         LottoGenerator lottoGenerator = printAndGetRandomLottos(count);
 
         Lotto winNumbers = inputHandler.inputWinningNumbersUntilValid();
-        int bonusNumber = inputHandler.inputBonusNumber();
+        int bonusNumber = inputHandler.inputBonusNumberUntilValid();
 
         Map<ResultRank, Integer> result = lottoService.lottoCalculater(lottoGenerator, winNumbers, bonusNumber);
         double profitRate = lottoService.calculateProfitRate(result, price);

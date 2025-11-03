@@ -24,7 +24,7 @@ public class InputHandler {
         }
     }
 
-    public int inputBonusNumber() {
+    public int inputBonusNumberUntilValid() {
         while (true){
             try{
                 OutputView.printInputBonusNumber();
@@ -33,7 +33,7 @@ public class InputHandler {
                 return bonusLotto.getBonusNumber();
             } catch (IllegalArgumentException e){
                 OutputView.printError(e.getMessage());
-                return inputBonusNumber();
+                return inputBonusNumberUntilValid();
             }
         }
     }
