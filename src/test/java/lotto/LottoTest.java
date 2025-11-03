@@ -1,10 +1,8 @@
 package lotto;
 
-import lotto.model.Calculator;
 import lotto.model.Lotto;
 import lotto.model.ResultRank;
-import lotto.model.util.ExceptionMessage;
-import lotto.model.util.Validator;
+import lotto.model.WinninLotto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +13,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 class LottoTest {
 
-    private final Calculator calculator = new Calculator(null, null, 0);
+
 
     @Test
     void 로또_번호의_개수가_6개가_넘어가면_예외가_발생한다() {
@@ -46,53 +44,50 @@ class LottoTest {
         int bonusNumber = 3;
 
         // when & then
-        assertThatThrownBy(() ->
-                Validator.validateBonusDuplicateWithWinNumbers(bonusNumber,winNumbers))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage(ExceptionMessage.DUPLICATED_BONUS_NUMBER);
-
+        assertThatThrownBy(() -> new WinninLotto(bonusNumber, winNumbers))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
     @DisplayName("6개 일치 시 1등을 반환한다")
     void returnFirstRankWhenMatch6() {
-        assertThat(calculator.determineRank(6, false))
+        assertThat(ResultRank.valueOf(6, false))
                 .isEqualTo(ResultRank.FIRST);
     }
 
     @Test
     @DisplayName("5개 + 보너스 일치 시 2등을 반환한다")
     void returnSecondRankWhenMatch5AndBonus() {
-        assertThat(calculator.determineRank(5, true))
+        assertThat(ResultRank.valueOf(5, true))
                 .isEqualTo(ResultRank.SECOND);
     }
 
     @Test
     @DisplayName("5개 일치 시 3등을 반환한다")
     void returnThirdRankWhenMatch5() {
-        assertThat(calculator.determineRank(5, false))
+        assertThat(ResultRank.valueOf(5, false))
                 .isEqualTo(ResultRank.THIRD);
     }
 
     @Test
     @DisplayName("4개 일치 시 4등을 반환한다")
     void returnFourthRankWhenMatch4() {
-        assertThat(calculator.determineRank(4, false))
+        assertThat(ResultRank.valueOf(4, false))
                 .isEqualTo(ResultRank.FOURTH);
     }
 
     @Test
     @DisplayName("3개 일치 시 5등을 반환한다")
     void returnFifthRankWhenMatch3() {
-        assertThat(calculator.determineRank(3, false))
+        assertThat(ResultRank.valueOf(3, false))
                 .isEqualTo(ResultRank.FIFTH);
     }
 
     @Test
     @DisplayName("2개 이하 일치 시 당첨되지 않는다(null 반환)")
     void returnNullWhenNoWinningCondition() {
-        assertThat(calculator.determineRank(2, false)).isNull();
-        assertThat(calculator.determineRank(1, false)).isNull();
-        assertThat(calculator.determineRank(0, false)).isNull();
+        assertThat(ResultRank.valueOf(2, false)).isEqualTo(ResultRank.MISS);
+        assertThat(ResultRank.valueOf(1, false)).isEqualTo(ResultRank.MISS);
+        assertThat(ResultRank.valueOf(0, false)).isEqualTo(ResultRank.MISS);
     }
 }
