@@ -1,26 +1,27 @@
 # java-lotto-precourse
+
 ## 로또 과제에서의 기능 객체 목록
 
-1. `Lotto` : 사용자가 입력한 당첨 로또 한장을 검증하고 저장하는 역할
-2. `PurchaseInfo` : 사용자로부터 입력을 받은 구입금액에서 로또를 몇 개를 살 수있는지 알려주는 역할
-3. `RandomNumbers` : 1-45까지 6개의 숫자를 랜덤으로 뽑아서 로또 한장 리스트로 반환해주는 역할
-4. `LottoGenerator` : RandomNumbers에서 랜덤 로또 번호를  PerchancePrice에서의 갯수만큼 로또 장 수를 만들어주는 역할
-5. `Calculator` : 랜덤 로또 번호와 당첨 로또번호, 보너스 번호를 비교해 번호 몇개가 맞았는지 계산하는 역할
-6. `ResultRank` : `resultCalculator` 에 따라 등수랑 금액을 결정하는 역할
-7. `ProfitCalculator` : 당첨 여부에 따라 수익률을 계산하는 역할
-8. `InputView` : 모든 입력을 담당하는 역할
-9. `OutputView` : 모든 출력을 담당하는 역할
+- `Lotto` : 로또 한 장(숫자 6개)을 표현하는 객체입니다. (구매한 로또, 당첨 로또 모두)
+- `PurchaseInfo` : 사용자의 '구입 금액'을 관리하는 객체
+- `WinningLotto` : '당첨 번호 6개(Lotto)'와 '보너스 번호'를 함께 가지는 객체
+- `ResultRank` : 1등부터 6등(낙첨)까지의 '등수' 자체를 의미하는 enum클래스
+- `LottoCalculator` : 당첨 통계 및 수익률을 관리하는 객체
+- `LottoGenerator` : NumberGenerator를 사용하여, 주어진 개수만큼 Lotto 객체 목록을 생성
+- `InputHandler` : InputView로 입력을 받고, 유효성을 검증하며 예외 발생 시 재입력을 요청
+- `LottoService` : Controller의 요청을 받아, 객체들의 작업을 조합하여 핵심 비즈니스 로직을 수행
+- `LottoController` : InputHandler, LottoService, OutputView를 통해 전체 애플리케이션의 흐름 제어
 
 ## 객체 간 협력 흐름
 
-1. **InputView** → 구입 금액, 당첨 번호, 보너스 번호 입력받음
-2. **Controller** → 입력 전달(예외발생시 재입력 로직 추가)
-3. **PurchaseInfo** → 구입 금액 기반 구매 수 계산
-4. **LottoGenerator** → `RandomNumberGenerator` 이용해 로또 N장 생성
-5. **Calculator** → 각 로또와 `WinningLotto` , `bonusNumber`비교
-6. **ResultRank** → 맞은 개수로 등수 결정
-7. **ProfitCalculator** → 총 수익률 계산
-8. **OutputView** → 당첨 내역, 수익률 출력
+1. InputHandler → (사용자 입력을 받아) Controller에 구입 금액 전달
+2. Controller → lottoService에 구입 금액 전달하며 구매 개수 계산 요청 (결과 받기)
+3. Controller → LottoGenerator에 구매 개수 전달하며 로또 N장 생성 요청
+4. Controller → OutputView에 생성된 로또 목록 출력 요청 
+5. InputHandler → Controller에 당첨 번호 및 보너스 번호 전달
+6. Controller → lottoService에 (생성된 로또 목록, 당첨 번호, 보너스 번호) 전달하며 당첨 통계 계산 요청 (결과 받기)
+7. Controller → lottoService에 (당첨 통계, 구입 금액) 전달하며 수익률 계산 요청 (결과 받기)
+8. Controller → OutputView에 (당첨 통계, 수익률) 전달하며 최종 결과 출력 요청
 
 ## 예외처리 목록
 
