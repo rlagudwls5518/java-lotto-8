@@ -1,7 +1,7 @@
 package lotto.service;
 
 import java.util.Map;
-import lotto.model.Calculator;
+import lotto.model.LottoCalculator;
 import lotto.model.Lotto;
 import lotto.model.LottoGenerator;
 import lotto.model.ProfitCalculator;
@@ -23,14 +23,12 @@ public class LottoService {
 
     public Map<ResultRank, Integer> lottoCalculater(LottoGenerator lottoGenerator, Lotto winNumbers,int bonusNumber){
         WinninLotto winninLotto = new WinninLotto(bonusNumber, winNumbers);
-        //계산로직
-        Calculator calculator = new Calculator(lottoGenerator.getNumbers(),
+        LottoCalculator calculator = new LottoCalculator(lottoGenerator.getNumbers(),
                 winninLotto.getWinLottos(), winninLotto.getBonusNumber());
         return calculator.calculateWinningResult();
     }
 
     public double calculateProfitRate(Map<ResultRank, Integer> result, int purchaseAmount){
-        //수익률계산로직
         ProfitCalculator profitCalculator = new ProfitCalculator(purchaseAmount, result);
         return  profitCalculator.calculateProfitRate();
     }
