@@ -31,7 +31,7 @@ public class BonusLotto {
 
     private void validateBonusNumberRange(String inputBonusNumber){
         int bonusNumber = Integer.parseInt(inputBonusNumber);
-        if(bonusNumber < LottoConstants.MIN_LOTTO_NUMBER.getNumber() || bonusNumber > LottoConstants.MIN_LOTTO_NUMBER.getNumber()){
+        if(bonusNumber < LottoConstants.MIN_LOTTO_NUMBER.getNumber() || bonusNumber > LottoConstants.MAX_LOTTO_NUMBER.getNumber()){
             throw new IllegalArgumentException(ExceptionMessage.INVALID_NUMBER_RANGE);
         }
     }
