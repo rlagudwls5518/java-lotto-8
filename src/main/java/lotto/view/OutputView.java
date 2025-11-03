@@ -31,26 +31,34 @@ public class OutputView {
     }
 
     public static void printLottoResult(Map<ResultRank, Integer> resultCount){
-        System.out.println("당첨통계");
-        System.out.println("---");
+        printResultHeader();
         ResultRank[] ranks = ResultRank.values();
-        for (int i = 0; i < ranks.length; i++) {
-            ResultRank rank = ranks[i];
+        for (ResultRank rank : ranks) {
             if (rank == null) continue;
 
             int count = resultCount.getOrDefault(rank, 0);
-
-            if (rank == ResultRank.SECOND) {
-                System.out.printf("5개 일치, 보너스 볼 일치 (%s원) - %d개%n",
-                        String.format("%,d", rank.getReward()), count);
-                continue;
-            }
-
-            System.out.printf("%d개 일치 (%s원) - %d개%n",
-                    rank.getMatchCount(),
-                    String.format("%,d", rank.getReward()),
-                    count);
+            String message = printRankFormat(rank, count);
+            System.out.println(message);
         }
+    }
+    private static void printResultHeader() {
+        System.out.println("당첨통계");
+        System.out.println("---");
+    }
+
+    private static String printRankFormat(ResultRank rank, int count){
+        String formattedReward = formatCurrency(rank.getReward());
+        if (rank == ResultRank.SECOND) {
+            System.out.printf("5개 일치, 보너스 볼 일치 (%s원) - %d개%n",
+                    String.format("%,d", rank.getReward()), count);
+        }
+        return String.format("%d개 일치 (%s원) - %d개",
+                rank.getMatchCount(),
+                formattedReward, count);
+    }
+
+    private static String formatCurrency(int amount) {
+        return String.format("%,d", amount);
     }
 
     public static void printLottoProfitRate(double profitRate){
