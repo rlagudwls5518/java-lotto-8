@@ -6,7 +6,7 @@
 - `PurchaseInfo` : 사용자의 '구입 금액'을 관리하는 객체
 - `WinningLotto` : '당첨 번호 6개(Lotto)'와 '보너스 번호'를 함께 가지는 객체
 - `ResultRank` : 1등부터 6등(낙첨)까지의 '등수' 자체를 의미하는 enum클래스
-- `LottoCalculator` : 당첨 통계 및 수익률을 관리하는 객체
+- `LottoCalculator` : 당첨 통계 및 수익률을 계산하는 객체
 - `LottoGenerator` : NumberGenerator를 사용하여, 주어진 개수만큼 Lotto 객체 목록을 생성
 - `InputHandler` : InputView로 입력을 받고, 유효성을 검증하며 예외 발생 시 재입력을 요청
 - `LottoService` : Controller의 요청을 받아, 객체들의 작업을 조합하여 핵심 비즈니스 로직을 수행
