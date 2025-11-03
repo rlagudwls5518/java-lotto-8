@@ -1,17 +1,49 @@
 package lotto;
 
+import lotto.controller.InputHandler;
 import lotto.model.Lotto;
 import lotto.model.LottoGenerator;
 import lotto.model.ResultRank;
 import lotto.model.WinninLotto;
+import lotto.model.util.CommonValidator;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import java.util.List;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class LottoTest {
+
+    @DisplayName("입력값이 숫자가 아닐 경우 예외가 발생 한다")
+    @ParameterizedTest
+    @ValueSource(strings = {"mococo", "1000a", " 1000", "천원"})
+    void throwException_When_Input_Is_NotNumeric(String invalidInput){
+        assertThatThrownBy(() -> CommonValidator.validateIsNumber(invalidInput))
+                .isInstanceOf(IllegalArgumentException.class);
+
+    }
+
+    @DisplayName("입력값이 숫자일 경우 정상 통과한다")
+    @ParameterizedTest
+    @ValueSource(strings = {"1000", "20000", "0"})
+    void pass_When_Input_Is_Numeric(String validInput){
+        Assertions.assertDoesNotThrow(() -> CommonValidator.validateIsNumber(validInput));
+    }
+
+    @DisplayName("당첨 번호 입력할때 숫자가 아닌경우 예외가 발생한다")
+    @ParameterizedTest
+    @ValueSource(strings = {"1", "2", "%", "16", "33", "43"})
+    void throwException_When_WinningNumbers_Are_NotNumeric(String validInput){
+        // when, then
+        InputHandler handler = new InputHandler();
+        assertThatThrownBy(() -> handler.createLottoFromInput(validInput))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
     @DisplayName("생성 갯수만큼 로또 객체를 생성한다")
     @Test
     void createsLottoObjects_byTheGivenNumber(){
@@ -23,6 +55,7 @@ class LottoTest {
         // then
         assertEquals(7, generatedLottos.size());
     }
+
     @DisplayName("로또번호의 개수가 6개가 넘어가면 예외가 발생한다")
     @Test
     void throwsException_whenLottoNumbersAreMoreThanSix() {
@@ -42,12 +75,14 @@ class LottoTest {
     void 로또_번호가_1_45까지가_아니면_예외가_발생한다() {
         assertThatThrownBy(() -> new Lotto(List.of(1, 2, 3, 4, 46, 5)))
                 .isInstanceOf(IllegalArgumentException.class);
+
+        assertThatThrownBy(() -> new Lotto(List.of(1, 2, 3, 4, 0, 5)))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
     @DisplayName("당첨 번호랑 보너스 번호랑 중복될 수 없다.")
     @Test
     void BonusNumberDuplicatesWinningNumber(){
-
         // given
         Lotto winNumbers = new Lotto(List.of(1, 2, 3, 4, 5, 6));
         int bonusNumber = 3;

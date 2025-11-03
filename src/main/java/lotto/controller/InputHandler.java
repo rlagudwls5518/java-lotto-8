@@ -9,6 +9,7 @@ import lotto.view.InputView;
 import lotto.view.OutputView;
 
 public class InputHandler {
+    private static final String seperator = ",";
 
     public int inputPriceUntilValid() {
         while (true) {
@@ -25,13 +26,13 @@ public class InputHandler {
     }
 
     public int inputBonusNumberUntilValid() {
-        while (true){
-            try{
+        while (true) {
+            try {
                 OutputView.printInputBonusNumber();
                 String inputBonusNumber = InputView.input();
                 BonusLotto bonusLotto = new BonusLotto(inputBonusNumber);
                 return bonusLotto.getBonusNumber();
-            } catch (IllegalArgumentException e){
+            } catch (IllegalArgumentException e) {
                 OutputView.printError(e.getMessage());
                 return inputBonusNumberUntilValid();
             }
@@ -43,16 +44,28 @@ public class InputHandler {
             try {
                 OutputView.printInputWinLotto();
                 String inputNumbers = InputView.input();
-                String[] winLottos = inputNumbers.split(",");
-                List<Integer> lottoNumbers = Arrays.stream(winLottos)
-                        .map(String::trim)
-                        .map(Integer::parseInt)
-                        .toList();
-                return new Lotto(lottoNumbers);
+                return createLottoFromInput(inputNumbers);
+
             } catch (IllegalArgumentException e) {
                 OutputView.printError(e.getMessage());
                 return inputWinningNumbersUntilValid();
             }
         }
+    }
+
+    public Lotto createLottoFromInput(String inputNumbers) {
+        String[] winLottos = inputNumbers.split(seperator);
+
+        List<Integer> lottoNumbers = Arrays.stream(winLottos)
+                .map(this::validateAndParse)
+                .toList();
+
+        return new Lotto(lottoNumbers);
+    }
+
+    private int validateAndParse(String numberStr) {
+        String trimmedStr = numberStr.trim();
+        CommonValidator.validateIsNumber(trimmedStr);
+        return Integer.parseInt(trimmedStr);
     }
 }
