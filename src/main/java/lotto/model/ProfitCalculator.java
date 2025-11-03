@@ -5,6 +5,7 @@ import java.util.Map;
 public class ProfitCalculator {
     private final int purchaseAmount;
     private final Map<ResultRank, Integer> resultCount;
+    private static final int PURSENT_NUMBER = 100;
 
     public ProfitCalculator(int purchaseAmount, Map<ResultRank, Integer> resultCount){
         this.purchaseAmount = purchaseAmount;
@@ -20,6 +21,6 @@ public class ProfitCalculator {
             totalReward += (long) rank.getReward() * count;
         }
 
-        return ((double) totalReward / purchaseAmount) * 100;
+        return ((double) totalReward / purchaseAmount) * PURSENT_NUMBER;
     }
 }

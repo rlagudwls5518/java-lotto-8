@@ -2,6 +2,7 @@ package lotto.model;
 
 import lotto.model.util.ExceptionMessage;
 import lotto.model.util.CommonValidator;
+import lotto.model.util.LottoConstants;
 
 public class BonusLotto {
 
@@ -23,14 +24,14 @@ public class BonusLotto {
     }
 
     private void validInputBonusNumberIsOne(String inputBonusNumber){
-        if(inputBonusNumber.length() != 1){
+        if(inputBonusNumber.length() != LottoConstants.BONUS_LOTTO_SIZE.getNumber()){
             throw new IllegalArgumentException(ExceptionMessage.BONUS_NUMBER_MUST_BE_ONE);
         }
     }
 
     private void validateBonusNumberRange(String inputBonusNumber){
         int bonusNumber = Integer.parseInt(inputBonusNumber);
-        if(bonusNumber < 1 || bonusNumber > 45){
+        if(bonusNumber < LottoConstants.MIN_LOTTO_NUMBER.getNumber() || bonusNumber > LottoConstants.MIN_LOTTO_NUMBER.getNumber()){
             throw new IllegalArgumentException(ExceptionMessage.INVALID_NUMBER_RANGE);
         }
     }

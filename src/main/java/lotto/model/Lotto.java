@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import lotto.model.util.ExceptionMessage;
+import lotto.model.util.LottoConstants;
 
 public class Lotto {
     private final List<Integer> numbers;
@@ -29,7 +30,7 @@ public class Lotto {
     }
 
     private void validateNumbersSize(List<Integer> numbers){
-        if(numbers.size() != 6){
+        if(numbers.size() != LottoConstants.LOTTO_SIZE.getNumber()){
             throw new IllegalArgumentException(ExceptionMessage.INVALID_LOTTO_SIZE);
         }
     }
@@ -43,11 +44,9 @@ public class Lotto {
     }
 
     private void validateNumbersRange(List<Integer> numbers){
-        final int MIN_NUMBER = 1;
-        final int MAX_NUMBER = 45;
 
         boolean invalid = numbers.stream()
-                .anyMatch(n -> n < MIN_NUMBER || n > MAX_NUMBER);
+                .anyMatch(n -> n < LottoConstants.MIN_LOTTO_NUMBER.getNumber() || n > LottoConstants.MAX_LOTTO_NUMBER.getNumber());
 
         if (invalid) {
             throw new IllegalArgumentException(ExceptionMessage.INVALID_NUMBER_RANGE);

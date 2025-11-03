@@ -3,6 +3,7 @@ package lotto.model;
 import camp.nextstep.edu.missionutils.Randoms;
 import java.util.ArrayList;
 import java.util.List;
+import lotto.model.util.LottoConstants;
 import lotto.model.util.RandomNumberGenerator;
 
 public class LottoGenerator  implements RandomNumberGenerator{
@@ -26,6 +27,7 @@ public class LottoGenerator  implements RandomNumberGenerator{
 
     @Override
     public List<Integer> createNumbers() {
-        return Randoms.pickUniqueNumbersInRange(1, 45, 6);
+        return Randoms.pickUniqueNumbersInRange(LottoConstants.MIN_LOTTO_NUMBER.getNumber(),
+                LottoConstants.MAX_LOTTO_NUMBER.getNumber(), LottoConstants.LOTTO_SIZE.getNumber());
     }
 }
