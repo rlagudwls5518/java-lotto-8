@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class LottoTest {
 
     @Test
-    void 생성_갯수만큼_로또번호를_생성한다(){
+    void 생성_갯수만큼_로또객체를_생성한다(){
         //given
         int count = 7;
         LottoGenerator lottoGenerator = new LottoGenerator(7);
