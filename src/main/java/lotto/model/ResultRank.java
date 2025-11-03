@@ -1,7 +1,6 @@
 package lotto.model;
 
 public enum ResultRank {
-    MISS(0,0),
     FIFTH(3, 5_000),
     FOURTH(4, 50_000),
     THIRD(5, 1_500_000),
@@ -21,7 +20,7 @@ public enum ResultRank {
         if (matchCount == 5) return THIRD;
         if (matchCount == 4) return FOURTH;
         if (matchCount == 3) return FIFTH;
-        return MISS;
+        return null;
     }
 
     public int getMatchCount() {

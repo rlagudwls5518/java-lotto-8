@@ -95,8 +95,8 @@ class LottoTest {
     @Test
     @DisplayName("2개 이하 일치 시 당첨되지 않는다(null 반환)")
     void returnNullWhenNoWinningCondition() {
-        assertThat(ResultRank.valueOf(2, false)).isEqualTo(ResultRank.MISS);
-        assertThat(ResultRank.valueOf(1, false)).isEqualTo(ResultRank.MISS);
-        assertThat(ResultRank.valueOf(0, false)).isEqualTo(ResultRank.MISS);
+        assertThat(ResultRank.valueOf(2, false)).isEqualTo(null);
+        assertThat(ResultRank.valueOf(1, false)).isEqualTo(null);
+        assertThat(ResultRank.valueOf(0, false)).isEqualTo(null);
     }
 }

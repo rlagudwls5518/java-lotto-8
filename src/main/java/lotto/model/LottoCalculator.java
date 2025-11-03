@@ -31,7 +31,7 @@ public class LottoCalculator {
     }
 
     private void isMiss(ResultRank rank, Map<ResultRank, Integer> resultCount){
-        if (rank != ResultRank.MISS) {
+        if (rank != null) {
             resultCount.put(rank, resultCount.getOrDefault(rank, 0) + 1);
         }
     }

@@ -16,7 +16,7 @@ public class ProfitCalculator {
 
         for (ResultRank rank : resultCount.keySet()) {
             int count = resultCount.get(rank);
-            if (rank == ResultRank.MISS) continue;
+            if (rank == null) continue;
             totalReward += (long) rank.getReward() * count;
         }
 
