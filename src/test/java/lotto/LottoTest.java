@@ -34,7 +34,7 @@ class LottoTest {
         Assertions.assertDoesNotThrow(() -> CommonValidator.validateIsNumber(validInput));
     }
 
-    @DisplayName("당첨 번호 입력할때 숫자가 아닌경우 예외가 발생한다")
+    @DisplayName("당첨 번호 입력할때 숫자가 아닌 경우 예외가 발생한다")
     @ParameterizedTest
     @ValueSource(strings = {"1", "2", "%", "16", "33", "43"})
     void throwException_When_WinningNumbers_Are_NotNumeric(String validInput){
